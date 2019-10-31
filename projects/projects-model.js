@@ -17,7 +17,7 @@ async function add(tbl, item) {
     .insert(item)
     .returning("id")
 
-  const newUser = await findBy("todo", { id })
+  const newUser = await findBy("project", { id })
   return newUser
 }
 
@@ -32,7 +32,7 @@ async function update(tbl, id, item) {
     .where({ id })
     .update(item)
 
-  const updatedUser = await findBy("todo", { id: updatedID })
+  const updatedUser = await findBy("project", { id: updatedID })
   return updatedUser
 }
 
