@@ -31,15 +31,15 @@ server.post("/", async (req, res) => {
   if (!item.name) {
     return res.status(400).json({ message: "Name field is required" })
   }
-  if (!item.message) {
-    return res.status(400).json({ message: "Message field is required" })
+  if (!item.color) {
+    return res.status(400).json({ message: "Color field is required" })
   }
 
   try {
     const posted = await projectDb.add("project", {
       name: item.name,
-      message: item.message,
-      completed: item.completed
+      color: item.color,
+      fav: item.fav
     })
 
     res.status(201).json(posted)
