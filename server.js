@@ -7,7 +7,7 @@ const morgan = require("morgan")
 const cors = require("cors")
 
 // routes
-const todo = require("./sample/todo-route")
+const project = require("./projects/project-route")
 
 // init express
 const server = express()
@@ -19,9 +19,7 @@ server.use(cors()) // cross-domain request sharing CORS
 server.use(morgan("dev")) // debugging logger
 
 // use routes
-server.use("/api/todo", todo)
-server.use("/api/doctor", doctor)
-server.use("/api/patient", patient)
+server.use("/api/project", project)
 
 // index route display name
 server.get("/", (req, res) => {
