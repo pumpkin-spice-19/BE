@@ -1,29 +1,29 @@
 const express = require("express")
 
 const server = express.Router()
-const todoDb = require("./todo-model")
+const projectDb = require("./project-model")
 const errHelper = require("../errors/errHelper")
 
-// Things todo :
-// Make a Todo app to practice
+// Things project :
+// Make a project app to practice
 
 //-----------------------------------------------------------
-// @route    /api/todo
-// @desc     get todo
+// @route    /api/project
+// @desc     get project
 // @Access   Public
 //-----------------------------------------------------------
 server.get("/", async (req, res) => {
   try {
-    const todos = await todoDb.get("todo")
-    res.json(todos)
+    const projects = await projectDb.get("project")
+    res.json(projects)
   } catch (err) {
     errHelper(500, err.errno || err, res)
   }
 })
 
 //-----------------------------------------------------------
-// @route    /api/todo
-// @desc     Add Todo
+// @route    /api/project
+// @desc     Add project
 // @Access   Public
 //-----------------------------------------------------------
 server.post("/", async (req, res) => {
@@ -36,7 +36,7 @@ server.post("/", async (req, res) => {
   }
 
   try {
-    const posted = await todoDb.add("todo", {
+    const posted = await projectDb.add("project", {
       name: item.name,
       message: item.message,
       completed: item.completed
@@ -49,23 +49,23 @@ server.post("/", async (req, res) => {
 })
 
 //-----------------------------------------------------------
-// @route    /api/todo
-// @desc    Update Todo Item
+// @route    /api/project
+// @desc    Update project Item
 // @Access   Public
 //-----------------------------------------------------------
 server.put("/:id", async (req, res) => {
   const { id } = req.params
 
   try {
-    const exists = await todoDb.findBy("todo", { id })
+    const exists = await projectDb.findBy("project", { id })
 
     if (exists) {
-      const updated = await todoDb.update("todo", id, req.body)
+      const updated = await projectDb.update("project", id, req.body)
       res.json(updated)
     } else {
       return res
         .status(404)
-        .json({ message: "Todo with that id does not exists" })
+        .json({ message: "project with that id does not exists" })
     }
   } catch (err) {
     errHelper(500, err.errno || err, res)
@@ -73,23 +73,23 @@ server.put("/:id", async (req, res) => {
 })
 
 //-----------------------------------------------------------
-// @route    /api/todo
-// @desc    Remove Todo
+// @route    /api/project
+// @desc    Remove project
 // @Access   Public
 //-----------------------------------------------------------
 server.delete("/:id", async (req, res) => {
   const { id } = req.params
 
   try {
-    const exists = await todoDb.findBy("todo", { id })
+    const exists = await projectDb.findBy("project", { id })
 
     if (exists) {
-      await todoDb.remove("todo", id)
-      res.json({ message: "sucessfully deleted todo" })
+      await projectDb.remove("project", id)
+      res.json({ message: "sucessfully deleted project" })
     } else {
       return res
         .status(404)
-        .json({ message: "Todo with that id does not exists" })
+        .json({ message: "project with that id does not exists" })
     }
   } catch (err) {
     errHelper(500, err.errno || err, res)
