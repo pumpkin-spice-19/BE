@@ -8,6 +8,7 @@ const errHelper = require("../errors/errHelper")
 // @route    /api/task
 // @desc     get task based on query
 // @Access   Public
+// @example http://localhost:5000/api/task?name=Inbox
 //-----------------------------------------------------------
 server.get("/search", async (req, res) => {
   const name = req.query.name
@@ -51,8 +52,7 @@ server.post("/", async (req, res) => {
   try {
     const posted = await taskDb.add("task", {
       task: item.task,
-      projectName: item.projectName,
-      projectId: item.projectId
+      projectName: item.projectName
     })
 
     res.status(201).json(posted)
