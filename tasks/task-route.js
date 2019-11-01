@@ -4,8 +4,21 @@ const server = express.Router()
 const taskDb = require("./task-model")
 const errHelper = require("../errors/errHelper")
 
-// Things task :
-// Make a task app to practice
+//-----------------------------------------------------------
+// @route    /api/task
+// @desc     get task based on query
+// @Access   Public
+//-----------------------------------------------------------
+server.get("/search", async (req, res) => {
+  const name = req.query.name
+
+  try {
+    const tasks = await findAllBy.get("task", { projectName: name })
+    res.json(tasks)
+  } catch (err) {
+    errHelper(500, err.errno || err, res)
+  }
+})
 
 //-----------------------------------------------------------
 // @route    /api/task

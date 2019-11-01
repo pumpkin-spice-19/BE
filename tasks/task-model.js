@@ -12,6 +12,7 @@ function findBy(tbl, filter) {
 function findAllBy(tbl, filter) {
   return db(tbl).where(filter)
 }
+
 async function add(tbl, item) {
   const [id] = await db(tbl)
     .insert(item)
