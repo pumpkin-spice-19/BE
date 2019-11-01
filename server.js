@@ -8,6 +8,7 @@ const cors = require("cors")
 
 // routes
 const project = require("./projects/project-route")
+const task = require("./tasks/task-route")
 
 // init express
 const server = express()
@@ -20,6 +21,7 @@ server.use(morgan("dev")) // debugging logger
 
 // use routes
 server.use("/api/project", project)
+server.use("/api/task", task)
 
 // index route display name
 server.get("/", (req, res) => {
