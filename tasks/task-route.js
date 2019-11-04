@@ -12,12 +12,20 @@ const errHelper = require("../errors/errHelper")
 //-----------------------------------------------------------
 server.get("/search", async (req, res) => {
   const name = req.query.name
-
+  if (!name) {
+    return res.status(400).json({ message: "Name query is required!" })
+  }
   try {
-    const tasks = await findAllBy.get("task", { projectName: name })
-    res.json(tasks)
-  } catch (err) {
-    errHelper(500, err.errno || err, res)
+    const tasks = await taskDb.findAllBy("task", { projectName: name })
+    if (tasks.length) {
+      res.json(tasks)
+    } else {
+      res.json([])
+    }
+  } catch ({ message }) {
+    console.log(message)
+    res.status(500).json({ message })
+    // errHelper(500, err.errno || err, res)
   }
 })
 
@@ -54,7 +62,6 @@ server.post("/", async (req, res) => {
       task: item.task,
       projectName: item.projectName
     })
-
     res.status(201).json(posted)
   } catch (err) {
     errHelper(500, err.errno || err, res)
