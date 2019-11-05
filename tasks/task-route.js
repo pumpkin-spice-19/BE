@@ -56,10 +56,14 @@ server.post("/", async (req, res) => {
   if (!item.projectName) {
     return res.status(400).json({ message: "projectName field is required" })
   }
+  if (!item.date) {
+    return res.status(400).json({ message: "projectName field is required" })
+  }
 
   try {
     const posted = await taskDb.add("task", {
       task: item.task,
+      date: item.date,
       projectName: item.projectName
     })
     res.status(201).json(posted)

@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
     tbl.increments()
     tbl.string("task").notNullable()
     tbl.string("projectName")
+    tbl.string("date")
     // tbl
     //   .integer("projectId")
     //   .unsigned()
