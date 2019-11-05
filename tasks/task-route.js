@@ -57,7 +57,7 @@ server.post("/", async (req, res) => {
     return res.status(400).json({ message: "projectName field is required" })
   }
   if (!item.date) {
-    return res.status(400).json({ message: "projectName field is required" })
+    return res.status(400).json({ message: "date field is required" })
   }
 
   try {
